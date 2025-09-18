@@ -6,9 +6,9 @@ using `vim.ui.select`.
 By using the above API your can set your picker yourself without
 any dependency on plugins like:
 
-- [Telescope]
-- [Snacks]
-- [Mini.picker]
+- [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+- [Snacks](https://github.com/folke/snacks.nvim/blob/main/docs/picker.md)
+- [Mini.pick](https://github.com/nvim-mini/mini.pick)
 - etc
 
 ## Supported File Types
