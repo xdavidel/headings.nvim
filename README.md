@@ -1,16 +1,15 @@
-# telescope-heading.nvim
+# headings.nvim
 
-<p align="center">
-  <img alt="Preview" src="https://i.imgur.com/LMdp3Cf.gif" />
-</p>
+An extension for that allows you to switch between document's headings
+using `vim.ui.select`.
 
-<p align="center">
-  <img alt="GitHub CI" src="https://github.com/crispgm/telescope-heading.nvim/actions/workflows/ci.yml/badge.svg" />
-  <img alt="GitHub Tag" src="https://img.shields.io/github/v/tag/crispgm/telescope-heading.nvim" />
-  <img alt="Dotfyle" src="https://dotfyle.com/plugins/crispgm/telescope-heading.nvim/shield?style=flat" />
-</p>
+By using the above API your can set your picker yourself without
+any dependency on plugins like:
 
-An extension for [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) that allows you to switch between document's headings.
+- [Telescope]
+- [Snacks]
+- [Mini.picker]
+- etc
 
 ## Supported File Types
 
@@ -27,105 +26,53 @@ An extension for [telescope.nvim](https://github.com/nvim-telescope/telescope.nv
 
 ## Setup
 
-Install with your favorite package manager:
+Install with `lazy` package manager:
 
 ```lua
-use('nvim-telescope/telescope.nvim')
-use('crispgm/telescope-heading.nvim')
+return {
+  "xdavidel/headings.nvim",
+  cmd = "Headings",
+  keys = {
+    {
+      "<A-o>",
+      function()
+        require("headings").pick_headings()
+      end,
+      mode = { "n", "i" },
+      desc = "Select Heading",
+    },
+  },
+  opts = {},
+}
 ```
 
-You can setup the extension by adding the following to your config:
-
-```lua
-require('telescope').load_extension('heading')
-```
+The default configurations can be found in `headings.lua`.
 
 ### Tree-sitter Support
 
-telescope-heading supports Tree-sitter for parsing documents and finding headings. But not all file types are supported, you may check [Supported File Types](#supported-file-types) section and inspect the Tree-sitter column.
-```lua
--- add nvim-treesitter
-use('nvim-treesitter/nvim-treesitter')
+`headings.nvim` supports Tree-sitter for parsing documents and finding
+headings. But not all file types are supported, you may check [Supported File
+Types](#supported-file-types) section and inspect the Tree-sitter column.
 
--- make sure you have already installed treesitter modules
-require('nvim-treesitter.configs').setup({
-    ensure_installed = {
-        -- ..
-        'markdown',
-        'rst',
-        -- ..
-    },
-})
-
--- enable treesitter parsing
-local telescope = require('telescope')
-telescope.setup({
-    -- ...
-    extensions = {
-        heading = {
-            treesitter = true,
-        },
-    },
-})
-
--- `load_extension` must be after `telescope.setup`
-telescope.load_extension('heading')
-```
-
-If `nvim-treesitter` was not correctly loaded, it would have fallen back to normal parsing. You may check `nvim-treesitter` configurations and whether your language is `TSInstall`ed.
-
-### Telescope Picker Options
-
-We may specific picker options for telescope-heading, which overrides the general telescope picker options.
-
-```lua
-local telescope = require('telescope')
-telescope.setup({
-    -- ...
-    extensions = {
-        heading = {
-          picker_opts = {
-              layout_config = { width = 0.8, preview_width = 0.5 },
-              layout_strategy = 'horizontal',
-          },
-        },
-        -- ...
-    },
-})
-```
+If `nvim-treesitter` was not correctly loaded, it would have fallen back to
+normal parsing. You may check `nvim-treesitter` configurations and whether your
+language is `TSInstall`ed.
 
 ## Usage
 
 ```viml
-:Telescope heading
-```
-
-## Development
-
-Init:
-
-```bash
-make init
-```
-
-Load telescope-heading locally:
-
-```bash
-nvim --noplugin -u scripts/minimal_init.vim ./README.md # replace with /path/to/testfile
-# or
-make test
-```
-
-Lint:
-
-```bash
-make lint
+:Headings
 ```
 
 ## Contributing
 
 All contributions are welcome.
 
+## Special Thanks
+
+Thanks for David Zhang for his original work on:
+[telescope-heading.nvim](https://github.com/crispgm/telescope-heading.nvim)
+
 ## License
 
-Copyright 2023 David Zhang. MIT License.
+Copyright 2025 David Delarosa. MIT License.
